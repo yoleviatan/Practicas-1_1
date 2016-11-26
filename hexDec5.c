@@ -1,7 +1,7 @@
 /*
-**      Fichero:  hexDec3
+**      Fichero:  hexDec5
 **        Autor:  Eloy Rodrigo Lorente Lorenzo
-**        Fecha:  14/11/16
+**        Fecha: 
 **
 **  Descripcion: Este programa transforma dos valores hexadecimales a decimal.
 */
@@ -11,8 +11,9 @@
 
 /* Definición de constantes */ 
 #define CTE 16
-#define SINERROR 1
-#define CONERROR 0
+#define SINERROR 0
+#define CONERROR1 1
+#define CONERROR2 2
 
 int hexDec (char car1, char car2)
 {
@@ -47,24 +48,27 @@ int hexDec (char car1, char car2)
 
 int hexValidos (char car1, char car2)
 {
-  int *cuno;
-  int *cdos;
+  int cuno;
+  int cdos;
+  int valided;
   
   //Esta condicion comprueba que el caracter "car1" es valido en el codigo hexagesimal.
   if (('0' <= car1 && car1 <= '9') || ('a' <= car1 && car1 <= 'f') || ('A' <= car1 && car1 <= 'F')){
-    *cuno = SINERROR;
+    cuno = SINERROR;
   }else{
-    *cuno = CONERROR; 
+    cuno = CONERROR1; 
   }
   
   //Esta condicion comprueba que el caracter "car2" es valido en el codigo hexagesimal.
   if (('0' <= car2 && car2  <= '9') || ('a' <= car2 && car2 <= 'f') || ('A' <= car2 && car2 <= 'F')){
-    *cdos = SINERROR;
+    cdos = SINERROR;
   }else{
-    *cdos = CONERROR;
+    cdos = CONERROR2;
   }
+
+  valided = cuno + cdos;
   
-  return 0;
+  return (valided);
 }
   
 
@@ -84,14 +88,14 @@ int main()
 	
 	valided = hexValidos(car1, car2); 
 	
-	if (valided == SINERROR && valided == SINERROR){
+	if (valided == SINERROR){
 	  valor = hexDec(car1, car2);
 	  printf("El valor decimal de 0x%c%c es %d\n", car1, car2, valor);
 	}else{
-	  if (valided == CONERROR){
+	  if (valided == CONERROR1 || valided == 3){
 	    printf("Error en el primer valor introducido\n");
 	  }
-	  if (valided == CONERROR){
+	  if (valided == CONERROR2 || valided == 3){
 	    printf("Error en el segundo valor introducido\n");
 	  }
 	}
