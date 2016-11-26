@@ -11,9 +11,8 @@
 
 /* Definición de constantes */ 
 #define CTE 16
-#define SINERROR 0
-#define CONERROR1 1
-#define CONERROR2 2
+#define SINERROR 1
+#define CONERROR 0
 
 int hexDec (char car1, char car2)
 {
@@ -48,25 +47,20 @@ int hexDec (char car1, char car2)
 
 int hexValidos (char car1, char car2)
 {
-  int cuno;
-  int cdos;
   int valided;
   
   //Esta condicion comprueba que el caracter "car1" es valido en el codigo hexagesimal.
   if (('0' <= car1 && car1 <= '9') || ('a' <= car1 && car1 <= 'f') || ('A' <= car1 && car1 <= 'F')){
-    cuno = SINERROR;
+    valided = SINERROR;
+    //Esta condicion comprueba que el caracter "car2" es valido en el codigo hexagesimal.
+    if (('0' <= car2 && car2  <= '9') || ('a' <= car2 && car2 <= 'f') || ('A' <= car2 && car2 <= 'F')){
+      valided = SINERROR;
+    }else{
+      valided = CONERROR; 
+    }
   }else{
-    cuno = CONERROR1; 
+    valided = CONERROR;
   }
-  
-  //Esta condicion comprueba que el caracter "car2" es valido en el codigo hexagesimal.
-  if (('0' <= car2 && car2  <= '9') || ('a' <= car2 && car2 <= 'f') || ('A' <= car2 && car2 <= 'F')){
-    cdos = SINERROR;
-  }else{
-    cdos = CONERROR2;
-  }
-
-  valided = cuno + cdos;
   
   return (valided);
 }
@@ -92,11 +86,8 @@ int main()
 	  valor = hexDec(car1, car2);
 	  printf("El valor decimal de 0x%c%c es %d\n", car1, car2, valor);
 	}else{
-	  if (valided == CONERROR1 || valided == 3){
-	    printf("Error en el primer valor introducido\n");
-	  }
-	  if (valided == CONERROR2 || valided == 3){
-	    printf("Error en el segundo valor introducido\n");
+	  if (valided == CONERROR){
+	    printf("Invalido\n");
 	  }
 	}
       }
